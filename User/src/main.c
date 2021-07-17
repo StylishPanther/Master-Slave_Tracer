@@ -59,7 +59,7 @@ int main(void)
   M4_Rcc_Init();
   M4_Gpio_Init();
   M4_Timer_Init();
-  M4_Pwm_Init();
+  // M4_Pwm_Init();
   //PD_Init();
 
   GPIO_SetBits(GPIOD,GPIO_Pin_All);
