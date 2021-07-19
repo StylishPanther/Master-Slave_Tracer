@@ -1,0 +1,126 @@
+#ifndef STRUCT_H
+#define STRUCT_H
+//#include "Configuration.h"
+//#include "device.h"
+#endif
+#ifdef __STRUCT__
+
+#undef __STRUCT__
+#define __STRUCT_EXT__
+
+#else
+
+#define __STRUCT_EXT__	extern
+
+
+#endif
+
+
+
+
+typedef volatile struct bit_flag
+{
+	unsigned int flag:1;
+	unsigned int motor_flag:1;
+	unsigned int speed_up_start:1;
+	unsigned int speed_up:1;
+	unsigned int motor_start:1;
+	unsigned int start_flag:1;
+	unsigned int position_flag:1;
+}bit_field_flag_t;
+__STRUCT_EXT__ bit_field_flag_t	g_Flag;
+
+typedef volatile struct motor
+{
+	int		int32accel;
+
+	int		int32qep_count;
+	int		int32decel_flag;
+	int		int32qep_val;
+
+
+volatile float  f32dist_sum,
+				f32dist_total,
+				f32cur_vel[ 4 ],
+				f32cur_vel_avr,
+				f32err_vel[ 4 ],
+				f32err_vel_sum,
+				f32next_vel,
+				f32proportional,
+				f32derivative,
+				f32pid_out,
+				f32user_vel,
+				f32decel_vel,
+				f32total_dist,
+				f32get_dist,
+				f32decel_dist,
+				f32err_dist,
+				f32user_dist,
+				f32start_dist,
+				f32start_dist_total,
+				f32pid_result;
+
+	float		f32dist_cur,
+				f32tick_dist;
+
+	float		f32kp,
+				f32kd;
+
+}motor_vari_t;
+__STRUCT_EXT__ motor_vari_t g_motor;
+
+typedef volatile struct sensor
+{
+	volatile uint32 u32result;
+//	volatile
+}sensor_t;
+__STRUCT_EXT__  sensor_t g_sen[2][128];
+__STRUCT_EXT__  sensor_t g_lsen[120];
+__STRUCT_EXT__  sensor_t g_rsen[120];
+__STRUCT_EXT__  sensor_t * g_plsen;
+__STRUCT_EXT__  sensor_t * g_prsen;
+
+
+typedef volatile struct sensor_cali
+{
+	volatile int int32max_value;
+	volatile int int32min_value;
+	volatile int u32result;
+	volatile int int32weight;
+
+	volatile unsigned int u32passive:1;
+	volatile unsigned int u32active:1;
+
+	volatile float f32data;
+
+
+//	volatile long long
+}sensor_cali_t;
+__STRUCT_EXT__  sensor_cali_t g_rcsen[120];
+__STRUCT_EXT__  sensor_cali_t g_lcsen[120];
+typedef volatile struct line_t
+{
+	volatile int linedata;
+}g_line_info;
+typedef volatile struct position
+{
+	volatile unsigned int u64state;
+}position_t;
+
+__STRUCT_EXT__  position_t g_lpos;
+__STRUCT_EXT__  position_t g_rpos;
+
+__STRUCT_EXT__ position_t g_pos;
+
+
+
+typedef volatile struct us_flag
+{
+	volatile unsigned int us50_flag:1;
+	volatile unsigned int us100_flag:1;
+	volatile unsigned int us500_flag:1;
+	volatile unsigned int us1000_flag:1;
+}ustimer_t;
+
+__STRUCT_EXT__ ustimer_t g_timer;
+

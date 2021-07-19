@@ -1,0 +1,27 @@
+/*
+ * Menu.c
+ *
+ *  Created on: 2019. 6. 15.
+ *      Author: seung_il
+ */
+
+
+#include "TC27x_Device.h"
+#include "Menu.h"
+
+
+void (*menu_func[ HEIGHT ][ WIDTH ] )( void ) =
+{
+	{NULL, NULL, NULL, NULL, NULL},
+	{NULL, NULL, NULL, NULL, NULL},
+	{NULL, NULL, NULL, NULL, NULL}
+};
+char menu_print[ HEIGHT ][ WIDTH ][ 8 ] =
+{
+		{"SENSOR  ", "sensor  ", "127Value", "SenValue","Position"},
+		{"MOTOR   ", "Velocity", "Excel   ", "Handle  ","Map     "},
+		{"MOVE    ", "Search  ", "Advanced", "Awaken  ","MS      "}
+
+
+};
+

@@ -1,0 +1,308 @@
+/**
+ * \file Cpu0_Main.c
+ * \brief System initialisation and main program implementation.
+ *
+ * \version InfineonRacer 1_0_0
+ */
+
+#define _MAIN_
+#define __STRUCT__
+//#define SERVOTEST
+//#define MOTORPID
+#define ADCTEST
+//#define POSITIONTEST
+
+/******************************************************************************/
+/*----------------------------------Includes----------------------------------*/
+/******************************************************************************/
+
+#include "Cpu0_Main.h"
+#include "SysSe/Bsp/Bsp.h"
+#include "IfxScuWdt.h"
+#include "BasicStm.h"
+
+#include "TC27x_Device.h"
+
+#if BOARD == APPLICATION_KIT_TC237
+#include <Tft/conio_tft.h>
+#include "tft_app.h"
+#include "background_light.h"
+#include "Perf_Meas.h"
+#include "display_io.h"
+#elif BOARD == SHIELD_BUDDY
+
+#endif
+
+
+/******************************************************************************/
+/*------------------------Inline Function Prototypes--------------------------*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*-----------------------------------Macros-----------------------------------*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*------------------------Private Variables/Constants-------------------------*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*------------------------------Global variables------------------------------*/
+/******************************************************************************/
+App_Cpu g_AppCpu0; /**< \brief CPU 0 global data */
+
+/* this variables are initialized by c_init and accessible from all CPUs */
+//volatile boolean tft_ready = 0;
+//
+//extern TCONTROLMENU controlmenu;
+//
+/******************************************************************************/
+/*-------------------------Function Implementations---------------------------*/
+/******************************************************************************/
+
+/** \brief Main entry point after CPU boot-up.
+ *
+ *  It initialise the system and enter the endless loop that handles the demo
+ */
+static void variable_init(void);
+static void system_init(void);
+
+int core0_main(void)
+{
+	system_init();
+	variable_init();
+
+    printf("Hello, Start!\n");
+    printf("Hello, Start!\n");
+    printf("Hello, Start!\n");
+    printf("Hello, Start!\n");
+    VFDPrintf("MAZE23rd");
+    waitTime(TimeConst_1s);
+
+    /* background endless loop */
+#ifdef SERVOTEST
+    i= 200000;
+ 0   ServoControll(i);
+    waitTime(TimeConst_1s);
+
+#endif
+    /* background endless loop */
+    BasicGtmTom_run();
+    VFDPrintf("TEAMMAZE");
+
+    SensorMaxminSetting();
+
+    waitTime(TimeConst_1s);
+#ifdef MOTORPID
+
+    g_motor.f32user_vel = 3000.0;
+    g_motor.f32next_vel = 3000.0;
+    g_motor.int32accel = 3000;
+    g_Flag.motor_start = TRUE;
+#endif
+
+#ifdef POSITIONTEST
+    for(i = 0; i < 120; i++)
+    {
+    	printf("%d ",g_lcsen[i].int32weight);
+    }
+    printf("\n");
+    for (i = 0; i < 120; i++)
+    {
+    	printf("%d ",g_rcsen[i].int32weight);
+    }
+    printf("\n");
+    waitTime(TimeConst_1s);
+#endif
+    while (TRUE)
+    {
+    	//Servo_motor(g_int32servo);
+#ifdef POSITIONTEST
+    	MakePosition();
+//    	printf("%4.4f %4.4f\n",g_f32_left_handle,g_f32_right_handle);
+    	//VFDPrintf("%8.4f",g_f32_left_handle);
+    	//waitTime(2*TimeConst_100ms);
+#endif
+
+#ifdef MOTORPID
+//    	g_Flag.motor_start = TRUE; // motor activate flag
+    	//printf("%8.0f, %8.0f\n",g_motor.f32pid_result,g_motor.f32cur_vel[ 0 ]);
+    	//VFDPrintf("%8d",GPT120_T2.I);
+    	//VFDPrintf("%8.0f\n",g_motor.f32cur_vel[0]);
+//    	VFDPrintf("%8d",(int)(g_motor.f32pid_result));
+//    	waitTime(TimeConst_10ms);
+    	//VFDPrintf("%8d",g_motor.int32qep_val);
+    	//printf("%d,",(int)(g_motor.f32pid_result));
+    //	VFDPrintf("%d       ",GPT120_T2CON.B.T2RDIR);
+    	//waitTime(TimeConst_10ms);
+
+    	//VFDPrintf("%d %d",int32_height,int32_width);
+
+    	//if(!SW_R)
+    		//GPT120_T2.I = 0;
+
+    	if(!SW_L)
+    	{
+    		g_motor.f32kp -= 0.02;
+    		printf("%f  %f\n",g_motor.f32kp,g_motor.f32kd);
+    		waitTime(5*TimeConst_100ms);
+    	}
+    	if(!SW_R)
+    	{
+    	    g_motor.f32kp += 0.02;
+    	    printf("%f  %f\n",g_motor.f32kp,g_motor.f32kd);
+    	    waitTime(5*TimeConst_100ms);
+    	}
+//    	if(!SW_D)
+//    	{
+//    	    g_motor.f32kd += 0.01;
+//    	    printf("%f  %f\n",g_motor.f32kp,g_motor.f32kd);
+//    	    waitTime(5*TimeConst_100ms);
+//    	}
+//    	if(!SW_UP)
+//    	{
+//    		g_motor.f32kd += 0.01;
+//    		printf("%f  %f\n",g_motor.f32kp,g_motor.f32kd);
+//    		waitTime(5*TimeConst_100ms);
+//    	}
+
+#endif
+
+#if 0
+
+//    	BasicGtmTom_run();
+    	if(!SW_R)
+    	{
+
+    		//printf("%d\n",i);
+    		//printf("Forward\n");
+    		GTM_TOM0_CH2_SR0.B.SR0 = 10000;
+    		GTM_TOM0_CH2_SR1.B.SR1 = 10000;
+
+    		GTM_TOM0_CH3_SR0.B.SR0 = 10000;
+    		GTM_TOM0_CH3_SR1.B.SR1 = 10000;
+    	}
+
+    	if(!SW_L)
+    	{
+    		i++;
+    		//printf("%d\n",i);
+    		   //printf("Backward\n");
+    		   GTM_TOM0_CH3_SR0.B.SR0 = 10000;
+    		   GTM_TOM0_CH3_SR1.B.SR1 = 10000;
+
+    		   GTM_TOM0_CH2_SR0.B.SR0 = 10000;
+    		   GTM_TOM0_CH2_SR1.B.SR1 = 10000;
+    	}
+
+#endif
+
+#ifdef SERVOTEST
+    		ServoControll(i);
+    		waitTime(TimeConst_10ms);
+    		i-=SERVO_1DEGREE;
+    		if(i<100000) i=100000;
+#endif
+
+
+
+#ifdef ADCRESULT
+    	for(i = 0; i < 120; i++)
+    		printf(" %d ",g_rsen[i].u32result);
+    	printf("\n");
+
+    	waitTime(8*TimeConst_100ms);
+#endif
+
+    } //end of while(TRUE)
+
+    return 0;
+} //end of core0_main()
+
+/** \} */
+
+void system_init(void)
+{
+    /*
+     * !!WATCHDOG0 AND SAFETY WATCHDOG ARE DISABLED HERE!!
+     * Enable the watchdog in the demo if it is required and also service the watchdog periodically
+     * */
+    IfxScuWdt_disableCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());
+    IfxScuWdt_disableSafetyWatchdog(IfxScuWdt_getSafetyWatchdogPassword());
+
+#if BOARD == APPLICATION_KIT_TC237
+    // all our ports are tristate, we enable the pull-up on some pins
+    // CS to touch
+    IfxPort_setPinModeInput(TOUCH_USE_CHIPSELECT.pin.port, TOUCH_USE_CHIPSELECT.pin.pinIndex, IfxPort_Mode_inputPullUp);
+    // CS to tft
+    IfxPort_setPinModeInput(TFT_USE_CHIPSELECT.pin.port, TFT_USE_CHIPSELECT.pin.pinIndex, IfxPort_Mode_inputPullUp);
+    // INT from touch
+    IfxPort_setPinModeInput(TOUCH_USE_INT.port, TOUCH_USE_INT.pinIndex, IfxPort_Mode_inputPullUp);
+    /* we enable the background light Application Kit */
+    IfxPort_setPinModeOutput(BACKGROUND_LIGHT.pin.port, BACKGROUND_LIGHT.pin.pinIndex, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_alt1);
+#elif BOARD == SHIELD_BUDDY
+
+#endif
+
+    /* Initialise the application state */
+    g_AppCpu0.info.pllFreq = IfxScuCcu_getPllFrequency();
+    g_AppCpu0.info.cpuFreq = IfxScuCcu_getCpuFrequency(IfxCpu_getCoreIndex());
+    g_AppCpu0.info.sysFreq = IfxScuCcu_getSpbFrequency();
+    g_AppCpu0.info.stmFreq = IfxStm_getFrequency(&MODULE_STM0);
+
+    /* Enable the global interrupts of this CPU */
+    IfxCpu_enableInterrupts();
+
+    /* Demo init */
+    BasicStm_init();	// Motor Timer Initialize
+
+	VfdInit();
+}
+
+void variable_init(void)
+{
+	memset((void *)g_sen,0x00,sizeof(sensor_t)*2*128);
+	memset((void *)g_rsen,0x00,sizeof(sensor_t)*120);
+	memset((void *)g_lsen,0x00,sizeof(sensor_t)*120);
+
+	memset((void *)g_rcsen,0x00,sizeof(sensor_cali_t)*120);
+	memset((void *)g_lcsen,0x00,sizeof(sensor_cali_t)*120);
+
+	memset((void *)&g_motor,0x00,sizeof(motor_vari_t));
+
+	memset((void *)&g_lpos,0x00,sizeof(position_t));
+	memset((void *)&g_rpos,0x00,sizeof(position_t));
+	memset((void *)g_u32left_line,0x00, sizeof(unsigned int));
+	memset((void *)g_u32right_line,0x00, sizeof(unsigned int));
+
+	SensorVariableInit();
+
+	g_int32_cnt = 0;
+	g_int32_interrupt_cnt = 0;
+	g_f32_servo_duty = 1.0;
+
+	flag = 0;// Menu Controll Flag
+
+	g_int32timer_cnt = 0;
+	g_int32servo = 100;
+
+	g_motor.f32kp = 0.4;
+	g_motor.f32kd = 0.07;
+
+	g_int32left_black = 4095;
+	g_int32left_white = 0;
+
+	g_int32right_white = 0;
+	g_int32right_black = 4095;
+
+	g_int32index = 0;
+
+
+	g_f32_left_handle = 0.0;
+	g_f32_right_handle = 0.0;
+}
+
+
+
+
+

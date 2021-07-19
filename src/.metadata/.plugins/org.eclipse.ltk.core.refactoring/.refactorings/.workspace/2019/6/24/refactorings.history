@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;AurixRacer_MAZE/0_Src/AppSw/Tricore/Algorithm/HandCode/abc.h&apos;" deleteContents="false" description="Delete resource &apos;AurixRacer_MAZE/0_Src/AppSw/Tricore/Algorithm/HandCode/abc.h&apos;" element1="/AurixRacer_MAZE/0_Src/AppSw/Tricore/Algorithm/HandCode/abc.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1560623621089"/>
+</session>

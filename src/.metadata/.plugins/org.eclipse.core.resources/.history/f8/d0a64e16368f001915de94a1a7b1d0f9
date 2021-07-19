@@ -1,0 +1,19 @@
+/*
+ * motor.h
+ *
+ *  Created on: 2019. 5. 31.
+ *      Author: ¿Ã¡¯»£
+ */
+
+#ifndef MOTOR_H_
+#define MOTOR_H_
+
+
+#include "Basic.h"
+#include "Configuration.h"
+
+
+IFX_EXTERN void Servo_motor(int degree);
+IFX_EXTERN void motor(void);
+IFX_EXTERN void MotorDirectionControll(int dutycycle,int direction);
+#endif

@@ -1,0 +1,79 @@
+
+#ifdef _MAIN_
+	#ifndef __VARIABLE_EXT__
+		#define __VARIABLE_EXT__
+	#endif
+#else
+	#ifndef __VARIABLE_EXT__
+		#define __VARIABLE_EXT__	extern
+	#endif
+#endif
+
+#define WIDTH 5
+#define HEIGHT 3
+#define NINE 9
+
+
+#define RED_LED_ON (setOutputPin(RED_LED.port, RED_LED.pinIndex, 1))
+#define WHITE_LED_ON (setOutputPin(WHITE_LED.port, WHITE_LED.pinIndex, 1))
+#define GREEN_LED_ON (setOutputPin(GREEN_LED.port, GREEN_LED.pinIndex, 1))
+#define YELLOW_LED_ON (setOutputPin(YELLOW_LED.port, YELLOW_LED.pinIndex, 1))
+
+#define RED_LED_OFF (setOutputPin(RED_LED.port, RED_LED.pinIndex, 0))
+#define WHITE_LED_OFF (setOutputPin(WHITE_LED.port, WHITE_LED.pinIndex, 0))
+#define GREEN_LED_OFF (setOutputPin(GREEN_LED.port, GREEN_LED.pinIndex, 0))
+#define YELLOW_LED_OFF (setOutputPin(YELLOW_LED.port, YELLOW_LED.pinIndex, 0))
+
+
+//#define SW_UP_PORT					DIGITAL_PIN30
+//#define SW_DOWN_PORT				DIGITAL_PIN32
+//#define SW_RIGHT_PORT				DIGITAL_PIN34
+//#define SW_LEFT_PORT 				DIGITAL_PIN37
+
+#define SW_L     (P00_IN.B.P12)
+#define SW_D     (P00_IN.B.P10)
+#define SW_UP    (P00_IN.B.P6 )
+#define SW_R     (P00_IN.B.P11)
+
+
+#define LEFT 	0
+#define RIGHT	1
+
+
+#define BACKWARD 	1//(GPT120_T2CON.B.T2RDIR & 0x01)
+#define FORWARD 	0//(GPT120_T2CON.B.T2RDIR & 0x00)
+// Test Count Variable
+__VARIABLE_EXT__ int g_int32_cnt;
+__VARIABLE_EXT__ int g_int32_interrupt_cnt;
+
+
+//********************* Menu Flag *******************//
+
+__VARIABLE_EXT__ int flag;
+
+//***************************************************//
+
+__VARIABLE_EXT__ float g_f32_servo_duty;
+__VARIABLE_EXT__ int g_int32timer_cnt;
+__VARIABLE_EXT__ int g_int32servo;
+
+//***************************************************//
+
+__VARIABLE_EXT__ int g_int32left_white;
+__VARIABLE_EXT__ int g_int32left_black;
+
+
+__VARIABLE_EXT__ int g_int32right_white;
+__VARIABLE_EXT__ int g_int32right_black;
+
+
+__VARIABLE_EXT__ int g_int32index;
+
+__VARIABLE_EXT__ unsigned int g_u32check[4];
+
+__VARIABLE_EXT__ float g_f32_left_handle;
+__VARIABLE_EXT__ float g_f32_right_handle;
+
+
+__VARIABLE_EXT__ unsigned int g_u32left_line[8];
+__VARIABLE_EXT__ unsigned int g_u32right_line[8];
