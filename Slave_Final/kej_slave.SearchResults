@@ -1,0 +1,13 @@
+---- HANDLE_CENTER Matches (12 in 3 files) ----
+Motor.c (main):#define HANDLE_CENTER 			_IQ16( 4250 )
+Motor.c (main):	g_q16han_accstep = _IQ16div( ( _IQ16( 1 ) -  acc_rate ) , 	HANDLE_CENTER );
+Motor.c (main):	g_q16han_decstep = _IQ16div( ( dec_rate - _IQ16( 1 ) ) , HANDLE_CENTER );
+Sensor.c (main):		_iq16left_handle = _IQ16mpy(g_q16han_decstep, ( HANDLE_CENTER + ( g_pos.iq7temp_pos << 9 )) ) + g_q16han_decmax;
+Sensor.c (main):		_iq16right_handle = _IQ16mpy( g_q16han_accstep , ( HANDLE_CENTER - ( g_pos.iq7temp_pos << 9 )) ) + g_q16han_accmax;
+Sensor.c (main):		_iq16left_handle = _IQ16mpy( g_q16han_accstep , HANDLE_CENTER + ( g_pos.iq7temp_pos << 9 ) ) + g_q16han_accmax;
+Sensor.c (main):		_iq16right_handle = _IQ16mpy( g_q16han_decstep , HANDLE_CENTER - ( g_pos.iq7temp_pos << 9 ) ) + g_q16han_decmax;
+Sensor.c (main):		_iq16left_handle = _IQ16mpy(g_q16han_decstep, ( HANDLE_CENTER + ( g_pos.iq7temp_pos << 9 )) )+(g_q16han_decmax);
+Sensor.c (main):		_iq16right_handle = _IQ16mpy( g_q16han_accstep , ( HANDLE_CENTER - ( g_pos.iq7temp_pos << 9 )) )+ (g_q16han_accmax);
+Sensor.c (main):		_iq16left_handle = _IQ16mpy( g_q16han_accstep , HANDLE_CENTER + ( g_pos.iq7temp_pos << 9 ) )+(g_q16han_accmax);
+Sensor.c (main):		_iq16right_handle = _IQ16mpy( g_q16han_decstep , HANDLE_CENTER - ( g_pos.iq7temp_pos << 9 ) )+(g_q16han_decmax);
+Variable.h (main):#define HANDLE_CENTER 			_IQ16( 2500 )
